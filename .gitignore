@@ -2,8 +2,10 @@
 student/*.o
 student/*.d
 student/unit_test
-student/histogram_seq
-student/histogram_par
+student/mandelbrot_set_par
+student/mandelbrot_set_seq
 test.o
 *.swp
 *.ppm
+a.out
+
