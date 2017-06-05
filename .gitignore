@@ -6,3 +6,4 @@ student/histogram_seq
 student/histogram_par
 test.o
 *.swp
+*.ppm
