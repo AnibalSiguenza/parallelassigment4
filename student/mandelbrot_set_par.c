@@ -13,7 +13,7 @@ void mandelbrot_draw(int x_resolution, int y_resolution, int max_iter,
                      int palette_shift, unsigned char (*img)[x_resolution][3],
 							int numThreads) {
 	
-#pragma omp parallel for num_threads(numThreads) schedule(dynamic,numThreads)
+#pragma omp parallel for num_threads(numThreads) schedule(dynamic,numThreads*2)
     for(int counter=0;counter<x_resolution*y_resolution;counter++){
         int x_resolution_t=x_resolution;
         int y_resolution_t=y_resolution;
