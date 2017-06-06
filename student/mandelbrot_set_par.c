@@ -11,19 +11,21 @@ void mandelbrot_draw(int x_resolution, int y_resolution, int max_iter,
                      double view_x0, double view_x1, double view_y0, double view_y1,
                      double x_stepsize, double y_stepsize,
                      int palette_shift, unsigned char (*img)[x_resolution][3],
-							int num_threads) {
-	double y;
-	double x;
-
-	complex double Z;
-	complex double C;
-
-	int k;
-
+							int numThreads) {
+	
+#pragma omp parallel for num_threads(numThreads) schedule(static,1)
 	for (int i = 0; i < y_resolution; i++)
 	{
 		for (int j = 0; j < x_resolution; j++)
 		{
+            int threads_maxiter=max_iter;
+            double y;
+            double x;
+            complex double Z;
+            complex double C;
+            int k;
+            int colors_division=(sizeof(colors) / sizeof(colors[0]));
+
 			y = view_y1 - i * y_stepsize;
 			x = view_x0 + j * x_stepsize;
 
@@ -36,16 +38,16 @@ void mandelbrot_draw(int x_resolution, int y_resolution, int max_iter,
 			{
 				Z = Z * Z + C;
 				k++;
-			} while (cabs(Z) < 2 && k < max_iter);
+			} while (cabs(Z) < 2 && k < threads_maxiter);
 
-			if (k == max_iter)
+			if (k == threads_maxiter)
 			{
 				memcpy(img[i][j], "\0\0\0", 3);
 			}
 			else
 			{
 				int index = (k + palette_shift)
-				            % (sizeof(colors) / sizeof(colors[0]));
+				            % colors_division;
 				memcpy(img[i][j], colors[index], 3);
 			}
 		}
