@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <omp.h>
 
-/*int main(){
-#pragma omp parallel
+int main(){
+#pragma omp parallel num_threads(7)
     {
         printf("Hello world from %d thread\n", omp_get_thread_num());
 
@@ -10,9 +10,9 @@
             printf("Number of threads is %d\n", omp_get_num_threads());
         }
     }
-}*/
+}
 
-const char * colored_digit[] = {
+/*const char * colored_digit[] = {
     "\e[1;30;1m0", "\e[1;31;1m1", "\e[1;32;1m2", "\e[1;33;1m3",
     "\e[1;34;1m4", "\e[1;35;1m5", "\e[1;36;1m6", "\e[1;37;1m7"
 };
@@ -32,4 +32,4 @@ int main(int argc, char** argv) {
         printf("%s\n", string_2D + row);
     }
     printf("\033[0m");
-}
+}*/
